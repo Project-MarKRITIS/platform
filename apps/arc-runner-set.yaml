@@ -15,6 +15,9 @@ spec:
         githubConfigSecret: arc-github-app-secret
         minRunners: 0
         maxRunners: 3
+        controllerServiceAccount:
+          namespace: arc-systems
+          name: arc-controller-gha-rs-controller
   destination:
     server: https://kubernetes.default.svc
     namespace: arc-runners
