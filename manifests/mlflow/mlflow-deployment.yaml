@@ -25,7 +25,8 @@ spec:
                 --port 5000 \
                 --backend-store-uri postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@postgres:5432/mlflow \
                 --artifacts-destination s3://$(S3_BUCKET) \
-                --serve-artifacts
+                --serve-artifacts \
+                --allowed-hosts "main-node.$(TAILNET_DOMAIN),mlflow.$(PROJ_SERVER_DOMAIN)"
           ports:
             - containerPort: 5000
           env:
@@ -47,6 +48,12 @@ spec:
               value: "eu-central-1"
             - name: S3_BUCKET
               value: "markritis-haw-project"
+            - name: TAILNET_DOMAIN
+              valueFrom:
+                configMapKeyRef: { name: mlflow-domains, key: tailnet-domain }
+            - name: PROJ_SERVER_DOMAIN
+              valueFrom:
+                configMapKeyRef: { name: mlflow-domains, key: proj-server-domain }
 ---
 apiVersion: v1
 kind: Service
