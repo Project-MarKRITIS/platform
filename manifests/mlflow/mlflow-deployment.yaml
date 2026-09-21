@@ -27,6 +27,7 @@ spec:
                 --artifacts-destination s3://$(S3_BUCKET) \
                 --serve-artifacts \
                 --allowed-hosts "main-node.$(TAILNET_DOMAIN),main-node.$(TAILNET_DOMAIN):*,mlflow.$(PROJ_SERVER_DOMAIN)"
+                --cors-allowed-origins "https://mlflow.$(PROJ_SERVER_DOMAIN)"
           ports:
             - containerPort: 5000
           env:
